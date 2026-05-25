@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Abridge Prospective Quality — Mockup</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #DC2626;
+    --accent-soft: #FEF2F2;
+    --accent-deep: #991B1B;
+  }
+  html, body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+  body { background: #f8fafc; color: #0f172a; }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+  .view { display: none; }
+  .view.active { display: block; }
+  .pulse-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+    animation: pulse 1.6s infinite;
+    display: inline-block;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+    70% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+  }
+  .tab-active { color: var(--accent); border-bottom-color: var(--accent); }
+  .badge-accent { background: var(--accent-soft); color: var(--accent-deep); }
+  .btn-primary {
+    background: var(--accent); color: white; font-weight: 600;
+    padding: 0.625rem 1rem; border-radius: 6px; font-size: 0.875rem;
+    min-height: 44px; display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: background 0.15s;
+  }
+  .btn-primary:hover { background: var(--accent-deep); }
+  .btn-secondary {
+    background: white; color: #0f172a; font-weight: 500;
+    padding: 0.625rem 1rem; border-radius: 6px; font-size: 0.875rem;
+    border: 1px solid #e2e8f0; min-height: 44px;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-secondary:hover { background: #f8fafc; }
+  .btn-ghost {
+    background: transparent; color: #475569; font-weight: 500;
+    padding: 0.625rem 1rem; border-radius: 6px; font-size: 0.875rem;
+    min-height: 44px; display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-ghost:hover { background: #f1f5f9; }
+  .epic-chrome {
+    background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+    border-bottom: 1px solid #cbd5e1;
+  }
+  .surface { background: white; border: 1px solid #e2e8f0; border-radius: 8px; }
+  .turn { padding: 0.5rem 0.875rem; }
+  .nudge-marker {
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    padding: 0.5rem 0.875rem;
+    font-size: 0.8125rem;
+    color: var(--accent-deep);
+    font-weight: 500;
+    margin: 0.5rem 0;
+  }
+  .highlight-evidence {
+    background: #fef3c7;
+    border-radius: 2px;
+    padding: 0 2px;
+  }
+  .just-added {
+    background: #f0fdf4;
+    border-left: 3px solid #16a34a;
+    padding-left: 0.625rem;
+    margin-left: -0.625rem;
+  }
+  .funnel-bar { background: linear-gradient(90deg, var(--accent) 0%, #f87171 100%); }
+  .data-table th { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; }
+  .data-table td { font-size: 0.875rem; }
+  .data-table tr:hover { background: #f8fafc; }
+  details > summary { list-style: none; cursor: pointer; }
+  details > summary::-webkit-details-marker { display: none; }
+  /* Animation styles for in-visit playback */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .anim-in { animation: fadeInUp 0.5s ease-out; }
+  @keyframes nudgeIn {
+    0%   { opacity: 0; transform: translateY(18px) scale(0.97); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.5); }
+    60%  { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0.15); }
+    100% { opacity: 1; transform: translateY(0) scale(1); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+  }
+  .nudge-enter { animation: nudgeIn 0.85s cubic-bezier(0.16, 1, 0.3, 1); }
+  .speed-active { background: white; box-shadow: 0 1px 2px rgba(0,0,0,0.06); font-weight: 600; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- TOP NAV -->
+<nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+  <div class="max-w-[1400px] mx-auto px-6 py-3 flex items-center gap-6">
+    <div class="flex items-center gap-2">
+      <div class="w-7 h-7 rounded flex items-center justify-center" style="background: var(--accent);">
+        <span class="text-white font-bold text-sm">a</span>
+      </div>
+      <span class="font-semibold tracking-tight">Abridge</span>
+      <span class="text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded badge-accent font-semibold">Prospective Quality · v1 prototype</span>
+    </div>
+    <div class="flex-1 flex items-center justify-center gap-1">
+      <button data-tab="1" onclick="showView(1)" class="px-4 py-2 text-sm font-medium text-slate-600 border-b-2 border-transparent hover:text-slate-900 transition-colors tab-active">1. Pre-visit</button>
+      <button data-tab="2" onclick="showView(2)" class="px-4 py-2 text-sm font-medium text-slate-600 border-b-2 border-transparent hover:text-slate-900 transition-colors">2. In-visit</button>
+      <button data-tab="3" onclick="showView(3)" class="px-4 py-2 text-sm font-medium text-slate-600 border-b-2 border-transparent hover:text-slate-900 transition-colors">3. Post-visit</button>
+      <button data-tab="4" onclick="showView(4)" class="px-4 py-2 text-sm font-medium text-slate-600 border-b-2 border-transparent hover:text-slate-900 transition-colors">4. Quality dashboard</button>
+    </div>
+    <div class="flex items-center gap-3 text-xs text-slate-500">
+      <span class="hidden md:inline">Demo: SPD · Sarah Patel · Highmark BCBS</span>
+      <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-semibold text-slate-700">MG</div>
+    </div>
+  </div>
+</nav>
+
+<!-- =================== VIEW 1: PRE-VISIT =================== -->
+<section id="view-1" class="view active">
+  <!-- Epic chrome -->
+  <div class="epic-chrome">
+    <div class="max-w-[1400px] mx-auto px-6 py-2 flex items-center justify-between text-xs text-slate-600">
+      <div class="flex items-center gap-3">
+        <span class="font-semibold text-slate-700">Epic Hyperdrive</span>
+        <span>·</span>
+        <span>UPMC Internal Medicine — Shadyside</span>
+        <span>·</span>
+        <span>Dr. Maria Garcia, MD</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span>Friday, May 24, 2026</span>
+        <span>·</span>
+        <span>7:42 AM</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-[1400px] mx-auto px-6 py-6 grid grid-cols-12 gap-6">
+
+    <!-- Left rail -->
+    <aside class="col-span-3 space-y-4">
+      <div class="surface p-5">
+        <h3 class="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-3">Today at a glance</h3>
+        <div class="space-y-3">
+          <div class="flex items-baseline justify-between">
+            <span class="text-sm text-slate-600">Patients on schedule</span>
+            <span class="text-2xl font-semibold text-slate-900">8</span>
+          </div>
+          <div class="flex items-baseline justify-between">
+            <span class="text-sm text-slate-600">Open care gaps</span>
+            <span class="text-2xl font-semibold" style="color: var(--accent);">3</span>
+          </div>
+          <div class="flex items-baseline justify-between">
+            <span class="text-sm text-slate-600">Closeable in-visit today</span>
+            <span class="text-2xl font-semibold text-slate-900">2</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="surface p-5">
+        <h3 class="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-3">Gap sources</h3>
+        <div class="space-y-2 text-sm">
+          <div class="flex items-center justify-between">
+            <span class="text-slate-700">Highmark BCBS (MA)</span>
+            <span class="text-slate-500">2</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-slate-700">UPMC Health Plan</span>
+            <span class="text-slate-500">1</span>
+          </div>
+          <div class="pt-2 mt-2 border-t border-slate-100 text-xs text-slate-500">
+            Refreshed: 3 days ago via Availity
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-lg p-4" style="background: var(--accent-soft); border: 1px solid #FECACA;">
+        <div class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: var(--accent-deep);">Prospective Quality</div>
+        <p class="text-sm" style="color: var(--accent-deep);">2 of today's 3 open gaps can be closed during the visit. Abridge will surface a single nudge in-conversation at the right moment.</p>
+      </div>
+    </aside>
+
+    <!-- Patient schedule -->
+    <main class="col-span-9 space-y-4">
+      <div class="flex items-baseline justify-between">
+        <div>
+          <h2 class="text-2xl font-semibold text-slate-900">Patient schedule</h2>
+          <p class="text-sm text-slate-500">Friday, May 24, 2026 · 8 patients</p>
+        </div>
+        <div class="flex items-center gap-2 text-sm text-slate-500">
+          <span class="inline-block w-2 h-2 rounded-full" style="background: var(--accent);"></span>
+          <span>= open care gap</span>
+        </div>
+      </div>
+
+      <div class="surface divide-y divide-slate-100">
+
+        <div class="p-4 grid grid-cols-12 gap-4 items-center hover:bg-slate-50 cursor-pointer transition-colors">
+          <div class="col-span-2 text-sm font-medium text-slate-700">8:00 AM</div>
+          <div class="col-span-6">
+            <div class="font-medium text-slate-900">James Wilson</div>
+            <div class="text-sm text-slate-500">68M · Diabetes follow-up · UPMC Health Plan</div>
+          </div>
+          <div class="col-span-3 text-sm text-slate-400">No open gaps</div>
+          <div class="col-span-1 text-sm text-slate-400 text-right">→</div>
+        </div>
+
+        <div class="p-4 grid grid-cols-12 gap-4 items-center hover:bg-slate-50 cursor-pointer transition-colors">
+          <div class="col-span-2 text-sm font-medium text-slate-700">8:30 AM</div>
+          <div class="col-span-6">
+            <div class="font-medium text-slate-900">Linda Park</div>
+            <div class="text-sm text-slate-500">61F · Annual physical · Highmark BCBS</div>
+          </div>
+          <div class="col-span-3 flex items-center gap-2">
+            <span class="inline-block w-2 h-2 rounded-full" style="background: var(--accent);"></span>
+            <span class="text-sm text-slate-700">1 gap · COL screening</span>
+          </div>
+          <div class="col-span-1 text-sm text-slate-400 text-right">→</div>
+        </div>
+
+        <div class="p-4 grid grid-cols-12 gap-4 items-center hover:bg-slate-50 cursor-pointer transition-colors">
+          <div class="col-span-2 text-sm font-medium text-slate-700">9:00 AM</div>
+          <div class="col-span-6">
+            <div class="font-medium text-slate-900">Robert Thompson</div>
+            <div class="text-sm text-slate-500">72M · Hypertension follow-up · Highmark BCBS</div>
+          </div>
+          <div class="col-span-3 text-sm text-slate-400">No open gaps</div>
+          <div class="col-span-1 text-sm text-slate-400 text-right">→</div>
+        </div>
+
+        <!-- SARAH PATEL - EXPANDED -->
+        <div class="bg-slate-50 border-l-4" style="border-color: var(--accent);">
+          <div class="p-4 grid grid-cols-12 gap-4 items-center">
+            <div class="col-span-2 text-sm font-semibold text-slate-900">9:30 AM</div>
+            <div class="col-span-6">
+              <div class="font-semibold text-slate-900">Sarah Patel</div>
+              <div class="text-sm text-slate-600">54F · 3-month diabetes follow-up · Highmark BCBS</div>
+            </div>
+            <div class="col-span-3 flex items-center gap-2">
+              <span class="inline-block w-2 h-2 rounded-full" style="background: var(--accent);"></span>
+              <span class="text-sm font-medium text-slate-900">1 gap · closeable today</span>
+            </div>
+            <div class="col-span-1 text-right">
+              <span class="text-xs font-semibold uppercase tracking-wider" style="color: var(--accent-deep);">Expanded</span>
+            </div>
+          </div>
+
+          <!-- Gap detail card -->
+          <div class="px-4 pb-5">
+            <div class="bg-white rounded-lg border border-slate-200 overflow-hidden">
+              <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <span class="text-[10px] uppercase tracking-wider px-2 py-1 rounded badge-accent font-semibold">HEDIS · SPD</span>
+                  <h3 class="font-semibold text-slate-900">Statin Therapy for Patients with Diabetes</h3>
+                </div>
+                <div class="text-xs text-slate-500">Measure year 2026</div>
+              </div>
+
+              <div class="px-5 py-4 grid grid-cols-2 gap-6">
+                <div>
+                  <h4 class="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-2">Why this gap is open</h4>
+                  <ul class="space-y-1.5 text-sm text-slate-700">
+                    <li class="flex items-baseline gap-2"><span class="text-slate-400">·</span>Active dx: Type 2 diabetes (E11.9)</li>
+                    <li class="flex items-baseline gap-2"><span class="text-slate-400">·</span>Age 54 (eligible range 40–75)</li>
+                    <li class="flex items-baseline gap-2"><span class="text-slate-400">·</span>No statin on current med list</li>
+                    <li class="flex items-baseline gap-2"><span class="text-slate-400">·</span>No documented allergy/intolerance</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-2">Closeable how</h4>
+                  <p class="text-sm text-slate-700">Prescribe any statin during this visit. Pharmacy fill claim will satisfy the SPD numerator. Single-action gap.</p>
+                  <p class="text-xs text-slate-500 mt-2">Abridge will surface a contextual nudge during the conversation if you don't raise it.</p>
+                </div>
+              </div>
+
+              <div class="px-5 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                <div class="flex items-center gap-4">
+                  <span><strong class="text-slate-700">Source:</strong> Highmark BCBS (MA)</span>
+                  <span>·</span>
+                  <span>Refreshed via Availity · 3 days ago</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="inline-block w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                  <span class="text-green-700 font-medium">Closeable in today's visit</span>
+                </div>
+              </div>
+
+              <div class="px-5 py-4 border-t border-slate-100 flex items-center gap-3">
+                <button class="btn-primary" onclick="showView(2)">Start visit →</button>
+                <button class="btn-secondary">Open patient chart</button>
+                <div class="flex-1"></div>
+                <button class="btn-ghost text-xs">Mark gap as not applicable</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-4 grid grid-cols-12 gap-4 items-center hover:bg-slate-50 cursor-pointer transition-colors">
+          <div class="col-span-2 text-sm font-medium text-slate-700">10:00 AM</div>
+          <div class="col-span-6">
+            <div class="font-medium text-slate-900">David Cohen</div>
+            <div class="text-sm text-slate-500">59M · New-patient visit · Highmark BCBS</div>
+          </div>
+          <div class="col-span-3 text-sm text-slate-400">No open gaps</div>
+          <div class="col-span-1 text-sm text-slate-400 text-right">→</div>
+        </div>
+
+        <div class="p-4 grid grid-cols-12 gap-4 items-center hover:bg-slate-50 cursor-pointer transition-colors">
+          <div class="col-span-2 text-sm font-medium text-slate-700">10:30 AM</div>
+          <div class="col-span-6">
+            <div class="font-medium text-slate-900">Margaret O'Brien</div>
+            <div class="text-sm text-slate-500">67F · Medicare wellness visit · Highmark BCBS</div>
+          </div>
+          <div class="col-span-3 flex items-center gap-2">
+            <span class="inline-block w-2 h-2 rounded-full" style="background: var(--accent);"></span>
+            <span class="text-sm text-slate-700">1 gap · BCS</span>
+          </div>
+          <div class="col-span-1 text-sm text-slate-400 text-right">→</div>
+        </div>
+
+        <div class="p-4 grid grid-cols-12 gap-4 items-center hover:bg-slate-50 cursor-pointer transition-colors">
+          <div class="col-span-2 text-sm font-medium text-slate-700">11:00 AM</div>
+          <div class="col-span-6">
+            <div class="font-medium text-slate-900">Michael Brennan</div>
+            <div class="text-sm text-slate-500">48M · Acute visit · UPMC Health Plan</div>
+          </div>
+          <div class="col-span-3 text-sm text-slate-400">No open gaps</div>
+          <div class="col-span-1 text-sm text-slate-400 text-right">→</div>
+        </div>
+
+        <div class="p-4 grid grid-cols-12 gap-4 items-center hover:bg-slate-50 cursor-pointer transition-colors">
+          <div class="col-span-2 text-sm font-medium text-slate-700">11:30 AM</div>
+          <div class="col-span-6">
+            <div class="font-medium text-slate-900">Anna Rodriguez</div>
+            <div class="text-sm text-slate-500">35F · Postpartum follow-up · UPMC Health Plan</div>
+          </div>
+          <div class="col-span-3 text-sm text-slate-400">No open gaps</div>
+          <div class="col-span-1 text-sm text-slate-400 text-right">→</div>
+        </div>
+      </div>
+
+      <div class="text-xs text-slate-400 text-center">Schedule shown 7 of 8 patients · 1:00 PM and 2:30 PM not pictured</div>
+    </main>
+  </div>
+</section>
+
+<!-- =================== VIEW 2: IN-VISIT =================== -->
+<section id="view-2" class="view">
+  <!-- Epic chrome with patient header -->
+  <div class="epic-chrome">
+    <div class="max-w-[1400px] mx-auto px-6 py-2 flex items-center justify-between text-xs text-slate-600">
+      <div class="flex items-center gap-3">
+        <span class="font-semibold text-slate-700">Epic Hyperdrive</span>
+        <span>·</span>
+        <span>UPMC Internal Medicine — Shadyside</span>
+        <span>·</span>
+        <span>Dr. Maria Garcia, MD</span>
+      </div>
+      <div>Friday, May 24, 2026 · 9:35 AM</div>
+    </div>
+    <div class="max-w-[1400px] mx-auto px-6 py-4 bg-white border-t border-slate-200">
+      <div class="grid grid-cols-12 gap-6 items-center">
+        <div class="col-span-4">
+          <div class="flex items-baseline gap-3">
+            <h1 class="text-xl font-semibold text-slate-900">Sarah Patel</h1>
+            <span class="text-sm text-slate-500">54 F</span>
+          </div>
+          <div class="text-xs text-slate-500 mt-0.5">DOB 03/15/1972 · MRN 4827193 · PCP Dr. Maria Garcia</div>
+        </div>
+        <div class="col-span-5 flex flex-wrap items-center gap-1.5">
+          <span class="text-[10px] uppercase tracking-wider px-2 py-1 rounded bg-slate-100 text-slate-700 font-semibold">NKDA</span>
+          <span class="text-[10px] uppercase tracking-wider px-2 py-1 rounded bg-slate-100 text-slate-700 font-semibold">Type 2 DM</span>
+          <span class="text-[10px] uppercase tracking-wider px-2 py-1 rounded bg-slate-100 text-slate-700 font-semibold">HTN</span>
+          <span class="text-[10px] uppercase tracking-wider px-2 py-1 rounded bg-slate-100 text-slate-700 font-semibold">Hyperlipidemia</span>
+          <span class="text-[10px] uppercase tracking-wider px-2 py-1 rounded bg-slate-100 text-slate-700 font-semibold">Payer: Highmark BCBS</span>
+        </div>
+        <div class="col-span-3 text-right">
+          <div class="inline-flex items-center gap-2 text-sm font-medium" style="color: var(--accent);">
+            <span class="pulse-dot"></span>
+            <span>Recording · <span id="visit-clock" class="mono">14:23</span></span>
+          </div>
+          <div class="text-xs text-slate-500 mt-0.5">Diabetes follow-up · started 9:35 AM</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Playback controls -->
+  <div class="max-w-[1400px] mx-auto px-6 pt-4">
+    <div class="bg-white rounded-lg border border-slate-200 px-4 py-2.5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <button id="play-btn" onclick="playVisit()" class="btn-primary text-xs" style="min-height: 36px; padding: 0.4rem 0.85rem;">
+          <span style="font-size: 0.7em;">▶</span> Replay visit (live)
+        </button>
+        <button onclick="resetVisit(true); renderStatic();" class="btn-ghost text-xs" style="min-height: 36px; padding: 0.4rem 0.85rem;">Show full state</button>
+        <span class="text-xs text-slate-400 ml-1">·</span>
+        <span class="text-xs text-slate-500">Speed:</span>
+        <div class="inline-flex items-center bg-slate-100 rounded p-0.5">
+          <button onclick="setSpeed(0.75)" data-speed="0.75" class="px-2 py-1 text-xs rounded">0.75×</button>
+          <button onclick="setSpeed(1)" data-speed="1" class="px-2 py-1 text-xs rounded speed-active">1×</button>
+          <button onclick="setSpeed(1.5)" data-speed="1.5" class="px-2 py-1 text-xs rounded">1.5×</button>
+          <button onclick="setSpeed(2)" data-speed="2" class="px-2 py-1 text-xs rounded">2×</button>
+        </div>
+      </div>
+      <div id="anim-status" class="text-xs text-slate-500">Full state shown · click Replay to play live</div>
+    </div>
+  </div>
+
+  <div class="max-w-[1400px] mx-auto px-6 py-4 grid grid-cols-12 gap-6">
+    <!-- LEFT: Transcript -->
+    <div class="col-span-7 surface flex flex-col" style="height: 720px;">
+      <div class="px-5 py-3 border-b border-slate-100 flex items-center justify-between">
+        <div>
+          <h3 class="font-semibold text-slate-900 text-sm">Live transcript</h3>
+          <p class="text-xs text-slate-500">Speaker-diarized · Linked Evidence enabled</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-slate-500">Auto-scroll</span>
+          <div class="w-8 h-4 bg-slate-200 rounded-full relative">
+            <div class="w-3 h-3 bg-white rounded-full absolute top-0.5 left-4 shadow"></div>
+          </div>
+        </div>
+      </div>
+      <div id="transcript-container" class="flex-1 overflow-y-auto px-5 py-3 space-y-3 text-sm">
+        <!-- populated by JS (see SCRIPT + renderStep) -->
+      </div>
+    </div>
+
+    <!-- RIGHT: Note + Nudge -->
+    <div class="col-span-5 space-y-4">
+      <!-- Note draft -->
+      <div class="surface flex flex-col" style="height: 432px;">
+        <div class="px-5 py-3 border-b border-slate-100 flex items-center justify-between">
+          <div>
+            <h3 class="font-semibold text-slate-900 text-sm">Note draft</h3>
+            <p class="text-xs text-slate-500">SOAP · auto-generating</p>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-slate-500">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+            <span>Updating</span>
+          </div>
+        </div>
+        <div class="flex-1 overflow-y-auto px-5 py-4 space-y-3 text-sm">
+          <section>
+            <h4 class="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-1">Subjective</h4>
+            <div id="soap-subjective" class="text-slate-800"></div>
+          </section>
+          <section>
+            <h4 class="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-1">Objective</h4>
+            <div id="soap-objective" class="text-slate-800"></div>
+          </section>
+          <section>
+            <h4 class="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-1">Assessment</h4>
+            <div id="soap-assessment" class="text-slate-800 space-y-1"></div>
+          </section>
+          <section>
+            <h4 class="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-1">Plan</h4>
+            <div id="soap-plan" class="text-slate-800 space-y-1"></div>
+          </section>
+        </div>
+      </div>
+
+      <!-- THE NUDGE -->
+      <div id="nudge-container" class="rounded-lg border-2 overflow-hidden" style="border-color: var(--accent); background: white;">
+        <div class="px-4 py-2 flex items-center justify-between" style="background: var(--accent-soft);">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: var(--accent);">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z" />
+            </svg>
+            <span class="text-xs font-semibold uppercase tracking-wider" style="color: var(--accent-deep);">Care opportunity</span>
+            <span class="text-xs px-1.5 py-0.5 rounded badge-accent font-semibold">HEDIS SPD</span>
+          </div>
+          <span class="text-xs mono" style="color: var(--accent-deep);">surfaced 14:23</span>
+        </div>
+        <div class="px-4 py-3 space-y-2">
+          <h4 class="font-semibold text-slate-900 text-sm">Sarah qualifies for statin therapy</h4>
+          <p class="text-sm text-slate-700">Type 2 diabetes (active) · age 54 · no statin on med list · LDL 138 (last lipid panel, Feb 2026). ADA/ACC/AHA guidelines recommend moderate-intensity statin for ASCVD prevention.</p>
+          <div class="rounded p-2.5 bg-slate-50 border border-slate-200">
+            <div class="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-1">Suggested order</div>
+            <div class="text-sm text-slate-800 mono">atorvastatin 20 mg PO daily at bedtime</div>
+            <div class="text-xs text-slate-500 mt-1">Recheck LFTs and lipids in 6 weeks</div>
+          </div>
+          <div class="flex items-center gap-2 pt-1">
+            <button class="btn-primary" onclick="handleNudge('added')">Add to plan</button>
+            <button class="btn-ghost" onclick="handleNudge('dismissed')">Dismiss</button>
+          </div>
+          <div class="text-xs text-slate-500 pt-1 leading-relaxed">
+            <strong>Closes:</strong> SPD gap with Highmark BCBS · <strong>Evidence:</strong> captured automatically, no clinician documentation required
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== VIEW 3: POST-VISIT =================== -->
+<section id="view-3" class="view">
+  <!-- Epic chrome -->
+  <div class="epic-chrome">
+    <div class="max-w-[1400px] mx-auto px-6 py-2 flex items-center justify-between text-xs text-slate-600">
+      <div class="flex items-center gap-3">
+        <span class="font-semibold text-slate-700">Epic Hyperdrive</span>
+        <span>·</span>
+        <span>UPMC Internal Medicine — Shadyside</span>
+        <span>·</span>
+        <span>Dr. Maria Garcia, MD</span>
+      </div>
+      <div>Friday, May 24, 2026 · 9:48 AM</div>
+    </div>
+    <div class="max-w-[1400px] mx-auto px-6 py-4 bg-white border-t border-slate-200">
+      <div class="grid grid-cols-12 gap-6 items-center">
+        <div class="col-span-4">
+          <div class="flex items-baseline gap-3">
+            <h1 class="text-xl font-semibold text-slate-900">Sarah Patel</h1>
+            <span class="text-sm text-slate-500">54 F</span>
+          </div>
+          <div class="text-xs text-slate-500 mt-0.5">DOB 03/15/1972 · MRN 4827193 · PCP Dr. Maria Garcia</div>
+        </div>
+        <div class="col-span-5 flex flex-wrap items-center gap-1.5">
+          <span class="text-[10px] uppercase tracking-wider px-2 py-1 rounded bg-slate-100 text-slate-700 font-semibold">NKDA</span>
+          <span class="text-[10px] uppercase tracking-wider px-2 py-1 rounded bg-slate-100 text-slate-700 font-semibold">Type 2 DM</span>
+          <span class="text-[10px] uppercase tracking-wider px-2 py-1 rounded bg-slate-100 text-slate-700 font-semibold">HTN</span>
+          <span class="text-[10px] uppercase tracking-wider px-2 py-1 rounded bg-slate-100 text-slate-700 font-semibold">Hyperlipidemia</span>
+          <span class="text-[10px] uppercase tracking-wider px-2 py-1 rounded bg-slate-100 text-slate-700 font-semibold">Payer: Highmark BCBS</span>
+        </div>
+        <div class="col-span-3 text-right">
+          <div class="inline-flex items-center gap-2 text-sm font-medium text-green-700">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span id="view3-status-text">Visit complete · 9:48 AM</span>
+          </div>
+          <div class="text-xs text-slate-500 mt-0.5">Diabetes follow-up · 13 min</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- State toggle -->
+  <div class="max-w-[1400px] mx-auto px-6 pt-4">
+    <div class="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-lg p-1 text-xs">
+      <span class="px-2 text-slate-500">View as:</span>
+      <button id="state-added-btn" onclick="setNudgeState('added')" class="px-3 py-1.5 rounded font-medium" style="background: var(--accent); color: white;">Nudge accepted</button>
+      <button id="state-dismissed-btn" onclick="setNudgeState('dismissed')" class="px-3 py-1.5 rounded font-medium text-slate-600 hover:bg-slate-50">Nudge dismissed</button>
+    </div>
+  </div>
+
+  <div class="max-w-[1400px] mx-auto px-6 py-4 grid grid-cols-12 gap-6">
+    <!-- LEFT: Final SOAP note -->
+    <div class="col-span-7 surface">
+      <div class="px-5 py-3 border-b border-slate-100 flex items-center justify-between">
+        <div>
+          <h3 class="font-semibold text-slate-900 text-sm">Final note · signed</h3>
+          <p class="text-xs text-slate-500">Dr. Maria Garcia, MD · 9:48 AM</p>
+        </div>
+        <div class="flex items-center gap-2 text-xs">
+          <button class="btn-ghost text-xs">Edit</button>
+          <button class="btn-ghost text-xs">Print</button>
+        </div>
+      </div>
+      <div class="px-5 py-5 space-y-4 text-sm">
+        <section>
+          <h4 class="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-1.5">Subjective</h4>
+          <p class="text-slate-800 leading-relaxed">54-year-old female with established Type 2 diabetes mellitus presenting for routine 3-month follow-up. Reports stable home glucose readings in the 130s. Tolerating metformin 1000mg BID well without significant GI side effects. Exercising approximately 30 minutes most days. Denies hypoglycemic episodes. No new symptoms or concerns.</p>
+        </section>
+        <section>
+          <h4 class="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-1.5">Objective</h4>
+          <p class="text-slate-800 leading-relaxed">Vitals: BP 128/76, HR 72, Temp 98.4, Wt 168 lb (stable from prior). POC HbA1c: <strong>7.0%</strong> (improved from 7.2%). Last lipid panel (Feb 2026): LDL 138, HDL 48, TG 165, TC 219.</p>
+        </section>
+        <section>
+          <h4 class="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-1.5">Assessment</h4>
+          <ol class="list-decimal list-inside space-y-1.5 text-slate-800 leading-relaxed">
+            <li>Type 2 diabetes mellitus (E11.9) — well-controlled on metformin. A1c at goal.</li>
+            <li id="assessment-statin" class="just-added">Hyperlipidemia (E78.5) — untreated. ASCVD risk elevated by diabetes and age. Indication for statin therapy.</li>
+            <li>Hypertension (I10) — controlled on lisinopril.</li>
+          </ol>
+        </section>
+        <section>
+          <h4 class="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-1.5">Plan</h4>
+          <ul class="space-y-1.5 text-slate-800 leading-relaxed">
+            <li>· Continue metformin 1000mg BID.</li>
+            <li>· Continue lisinopril 10mg daily.</li>
+            <li>· Continue aspirin 81mg daily.</li>
+            <li id="plan-statin" class="just-added"><strong>· <span class="highlight-evidence">Start atorvastatin 20mg PO daily at bedtime</span></strong> for ASCVD prevention. Patient counseled on rationale, expected benefits, and possible side effects; agreed to start. Recheck LFTs and lipid panel in 6 weeks.</li>
+            <li>· Continue lifestyle changes (diet, ~30 min/day walking).</li>
+            <li>· Recheck A1c in 3 months.</li>
+            <li>· Return to clinic in 3 months or sooner if needed.</li>
+          </ul>
+        </section>
+        <div class="pt-3 border-t border-slate-100 text-xs text-slate-500">
+          <div>Signed electronically: Maria Garcia, MD · 9:48 AM ET · 2026-05-24</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Linked Evidence + Structured Evidence Card -->
+    <div class="col-span-5 space-y-4">
+      <!-- Linked Evidence -->
+      <div id="evidence-added" class="surface">
+        <div class="px-5 py-3 border-b border-slate-100">
+          <h3 class="font-semibold text-slate-900 text-sm">Linked Evidence</h3>
+          <p class="text-xs text-slate-500">For: "Start atorvastatin 20mg PO daily…"</p>
+        </div>
+        <div class="px-5 py-4 space-y-3">
+          <div class="text-xs text-slate-500 mb-1">Source transcript · 14:24–14:27</div>
+          <div class="rounded bg-slate-50 border border-slate-200 px-3 py-2.5 text-sm space-y-2">
+            <div>
+              <span class="text-[11px] font-semibold text-slate-600">Dr. Garcia · 14:24</span>
+              <p class="text-slate-800 mt-0.5">"...you're not on a <span class="highlight-evidence">statin</span>. Given the diabetes and your age, the guidelines really do push for one..."</p>
+            </div>
+            <div>
+              <span class="text-[11px] font-semibold" style="color: var(--accent);">Sarah Patel · 14:25</span>
+              <p class="text-slate-800 mt-0.5">"Is that something I should be on?"</p>
+            </div>
+            <div>
+              <span class="text-[11px] font-semibold text-slate-600">Dr. Garcia · 14:26</span>
+              <p class="text-slate-800 mt-0.5">"I'd like to start you on <span class="highlight-evidence">atorvastatin 20 milligrams, once at bedtime</span>."</p>
+            </div>
+            <div>
+              <span class="text-[11px] font-semibold" style="color: var(--accent);">Sarah Patel · 14:27</span>
+              <p class="text-slate-800 mt-0.5">"That sounds fine. Let's do it."</p>
+            </div>
+          </div>
+          <button class="btn-ghost text-xs">▶ Play audio (14:24–14:27)</button>
+        </div>
+      </div>
+
+      <div id="evidence-dismissed" class="surface hidden">
+        <div class="px-5 py-3 border-b border-slate-100">
+          <h3 class="font-semibold text-slate-900 text-sm">Linked Evidence</h3>
+          <p class="text-xs text-slate-500">Care opportunity dismissed at 14:23</p>
+        </div>
+        <div class="px-5 py-4 space-y-3">
+          <div class="rounded bg-slate-50 border border-slate-200 px-3 py-2.5 text-sm">
+            <div class="text-[11px] font-semibold text-slate-600 uppercase tracking-wider mb-1">Dismissal reason (optional)</div>
+            <div class="text-slate-800">"Will discuss at next visit — patient already had a lot to absorb today."</div>
+          </div>
+          <div class="text-xs text-slate-500">No nudge fired again this visit. Will resurface on Sarah's next scheduled encounter.</div>
+        </div>
+      </div>
+
+      <!-- STRUCTURED EVIDENCE CARD - ADDED -->
+      <div id="structured-added" class="rounded-lg overflow-hidden" style="border: 2px solid #16a34a; background: white;">
+        <div class="px-4 py-2.5 flex items-center justify-between" style="background: #f0fdf4;">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-green-700" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z" /></svg>
+            <span class="text-xs font-semibold uppercase tracking-wider text-green-800">HEDIS SPD numerator met</span>
+          </div>
+          <span class="text-xs text-green-700 mono">auto-emitted</span>
+        </div>
+        <div class="px-4 py-3 space-y-2 text-sm">
+          <div class="grid grid-cols-3 gap-x-3 gap-y-1.5">
+            <div class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Measure</div>
+            <div class="col-span-2 text-slate-800">Statin Therapy for Patients with Diabetes (HEDIS MY2026)</div>
+
+            <div class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Numerator action</div>
+            <div class="col-span-2 text-slate-800">atorvastatin 20mg prescribed</div>
+
+            <div class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Evidence</div>
+            <div class="col-span-2 text-slate-800">Encounter 2026-05-24 09:35 · transcript ref 14:24–14:27 · audio archived</div>
+
+            <div class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Standard</div>
+            <div class="col-span-2 text-slate-800 mono text-xs">FHIR R4 · CQM-supplemental · NQF 0073</div>
+
+            <div class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Delivery</div>
+            <div class="col-span-2 text-slate-800">
+              <div class="flex items-center gap-1.5">
+                <span class="inline-block w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                Queued for ECDS feed → Highmark BCBS · est. delivery 9:55 AM
+              </div>
+            </div>
+          </div>
+          <div class="pt-2 mt-2 border-t border-slate-100 text-xs text-slate-500 leading-relaxed">
+            Dr. Garcia completed zero quality forms. Numerator evidence assembled automatically from the conversation and the order, attributed to Highmark for QBP calculation. Closure will be reconciled against the pharmacy fill claim within 72 hours.
+          </div>
+        </div>
+      </div>
+
+      <!-- STRUCTURED EVIDENCE CARD - DISMISSED -->
+      <div id="structured-dismissed" class="rounded-lg overflow-hidden hidden" style="border: 2px solid #f59e0b; background: white;">
+        <div class="px-4 py-2.5 flex items-center justify-between" style="background: #fffbeb;">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="color: #b45309;"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M5 19h14a2 2 0 001.84-2.75L13.74 4a2 2 0 00-3.48 0L3.16 16.25A2 2 0 005 19z" /></svg>
+            <span class="text-xs font-semibold uppercase tracking-wider" style="color: #92400e;">SPD numerator NOT met · gap open</span>
+          </div>
+          <span class="text-xs mono" style="color: #92400e;">resurfaces next visit</span>
+        </div>
+        <div class="px-4 py-3 space-y-2 text-sm">
+          <div class="grid grid-cols-3 gap-x-3 gap-y-1.5">
+            <div class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Measure</div>
+            <div class="col-span-2 text-slate-800">Statin Therapy for Patients with Diabetes (HEDIS MY2026)</div>
+
+            <div class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Disposition</div>
+            <div class="col-span-2 text-slate-800">Nudge dismissed by clinician at 14:23 · no statin prescribed this visit</div>
+
+            <div class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Status</div>
+            <div class="col-span-2 text-slate-800">Open · will resurface on Sarah's next encounter (currently scheduled for August 2026)</div>
+
+            <div class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Routing</div>
+            <div class="col-span-2 text-slate-800">No outreach triggered (clinician deferred, not declined)</div>
+          </div>
+          <div class="pt-2 mt-2 border-t border-slate-100 text-xs text-slate-500 leading-relaxed">
+            Dismissal is captured silently. Sarah's care plan is unchanged; the gap remains visible to the quality team but no further action is taken until the clinician's next encounter with this patient.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== VIEW 4: QUALITY DASHBOARD =================== -->
+<section id="view-4" class="view">
+  <div class="max-w-[1400px] mx-auto px-6 pt-6 pb-2">
+    <div class="flex items-baseline justify-between">
+      <div>
+        <div class="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-1">Highmark Network · Care Coordination</div>
+        <h1 class="text-2xl font-semibold text-slate-900">Quality dashboard — Q2 2026</h1>
+        <p class="text-sm text-slate-500">VP Quality view · 42,180 attributed MA lives · Updated 14:42 today</p>
+      </div>
+      <div class="flex items-center gap-2 text-xs">
+        <button class="btn-secondary text-xs">Q2 2026 ▾</button>
+        <button class="btn-secondary text-xs">All measures ▾</button>
+        <button class="btn-secondary text-xs">Export</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-[1400px] mx-auto px-6 py-4 space-y-6">
+
+    <!-- KPI strip -->
+    <div class="grid grid-cols-4 gap-4">
+      <div class="surface p-5">
+        <div class="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-2">SPD closure rate</div>
+        <div class="flex items-baseline gap-2">
+          <span class="text-3xl font-semibold text-slate-900">47.3%</span>
+          <span class="text-sm font-medium text-green-700">↑ 15.5 pts QoQ</span>
+        </div>
+        <div class="text-xs text-slate-500 mt-1">vs 31.8% Q1 (pre-Abridge prospective)</div>
+      </div>
+      <div class="surface p-5">
+        <div class="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-2">Gaps closed in-visit</div>
+        <div class="flex items-baseline gap-2">
+          <span class="text-3xl font-semibold text-slate-900">1,247</span>
+          <span class="text-sm text-slate-500">prospective</span>
+        </div>
+        <div class="text-xs text-slate-500 mt-1">SPD · KED · COL · BCS · across panel</div>
+      </div>
+      <div class="surface p-5">
+        <div class="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-2">Gaps closed retrospective</div>
+        <div class="flex items-baseline gap-2">
+          <span class="text-3xl font-semibold text-slate-900">2,108</span>
+          <span class="text-sm text-slate-500">chart chase</span>
+        </div>
+        <div class="text-xs text-slate-500 mt-1">37% reduction in abstraction hrs</div>
+      </div>
+      <div class="surface p-5" style="background: var(--accent-soft); border-color: #FECACA;">
+        <div class="text-xs uppercase tracking-wider font-semibold mb-2" style="color: var(--accent-deep);">Projected Stars QBP impact</div>
+        <div class="flex items-baseline gap-2">
+          <span class="text-3xl font-semibold" style="color: var(--accent-deep);">$4.2M</span>
+          <span class="text-sm" style="color: var(--accent-deep);">retained</span>
+        </div>
+        <div class="text-xs mt-1" style="color: var(--accent-deep);">If 3.5★ → 4★ holds through plan year</div>
+      </div>
+    </div>
+
+    <!-- Measure breakdown -->
+    <div class="surface overflow-hidden">
+      <div class="px-5 py-3 border-b border-slate-100 flex items-center justify-between">
+        <h3 class="font-semibold text-slate-900 text-sm">Measure performance</h3>
+        <span class="text-xs text-slate-500">Q2 2026 · 42,180 attributed lives</span>
+      </div>
+      <table class="w-full data-table">
+        <thead>
+          <tr class="border-b border-slate-100">
+            <th class="text-left px-5 py-2.5">Measure</th>
+            <th class="text-right px-5 py-2.5">Open gaps</th>
+            <th class="text-right px-5 py-2.5">Closed in-visit</th>
+            <th class="text-right px-5 py-2.5">Closed retro</th>
+            <th class="text-right px-5 py-2.5">Closure rate</th>
+            <th class="text-right px-5 py-2.5">Gap to 4★</th>
+            <th class="text-right px-5 py-2.5">$ impact</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          <tr style="background: var(--accent-soft);">
+            <td class="px-5 py-3">
+              <div class="font-semibold text-slate-900">SPD</div>
+              <div class="text-xs text-slate-500">Statin / Diabetes</div>
+            </td>
+            <td class="text-right px-5 py-3 text-slate-700">4,820</td>
+            <td class="text-right px-5 py-3 font-semibold" style="color: var(--accent-deep);">1,247</td>
+            <td class="text-right px-5 py-3 text-slate-700">1,034</td>
+            <td class="text-right px-5 py-3 font-semibold text-slate-900">47.3%</td>
+            <td class="text-right px-5 py-3 text-slate-700">6.7 pts</td>
+            <td class="text-right px-5 py-3 font-semibold" style="color: var(--accent-deep);">$1.10M</td>
+          </tr>
+          <tr>
+            <td class="px-5 py-3">
+              <div class="font-medium text-slate-900">KED</div>
+              <div class="text-xs text-slate-500">Kidney eval / Diabetes</div>
+            </td>
+            <td class="text-right px-5 py-3 text-slate-700">3,940</td>
+            <td class="text-right px-5 py-3 text-slate-700">412</td>
+            <td class="text-right px-5 py-3 text-slate-700">1,089</td>
+            <td class="text-right px-5 py-3 font-medium text-slate-900">38.1%</td>
+            <td class="text-right px-5 py-3 text-slate-700">10.4 pts</td>
+            <td class="text-right px-5 py-3 font-medium text-slate-900">$920K</td>
+          </tr>
+          <tr>
+            <td class="px-5 py-3">
+              <div class="font-medium text-slate-900">COL</div>
+              <div class="text-xs text-slate-500">Colorectal screening</div>
+            </td>
+            <td class="text-right px-5 py-3 text-slate-700">5,612</td>
+            <td class="text-right px-5 py-3 text-slate-700">678</td>
+            <td class="text-right px-5 py-3 text-slate-700">2,261</td>
+            <td class="text-right px-5 py-3 font-medium text-slate-900">52.4%</td>
+            <td class="text-right px-5 py-3 text-green-700 font-medium">on track</td>
+            <td class="text-right px-5 py-3 font-medium text-slate-900">$740K</td>
+          </tr>
+          <tr>
+            <td class="px-5 py-3">
+              <div class="font-medium text-slate-900">BCS</div>
+              <div class="text-xs text-slate-500">Breast cancer screening</div>
+            </td>
+            <td class="text-right px-5 py-3 text-slate-700">2,808</td>
+            <td class="text-right px-5 py-3 text-slate-700">156</td>
+            <td class="text-right px-5 py-3 text-slate-700">1,002</td>
+            <td class="text-right px-5 py-3 font-medium text-slate-900">41.2%</td>
+            <td class="text-right px-5 py-3 text-slate-700">8.2 pts</td>
+            <td class="text-right px-5 py-3 font-medium text-slate-900">$620K</td>
+          </tr>
+          <tr>
+            <td class="px-5 py-3">
+              <div class="font-medium text-slate-900">HBD</div>
+              <div class="text-xs text-slate-500">HbA1c control</div>
+            </td>
+            <td class="text-right px-5 py-3 text-slate-700">6,219</td>
+            <td class="text-right px-5 py-3 text-slate-400">in-visit not active</td>
+            <td class="text-right px-5 py-3 text-slate-700">4,431</td>
+            <td class="text-right px-5 py-3 font-medium text-slate-900">71.2%</td>
+            <td class="text-right px-5 py-3 text-green-700 font-medium">on track</td>
+            <td class="text-right px-5 py-3 font-medium text-slate-900">$850K</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Two-column bottom: Funnel + Side commentary -->
+    <div class="grid grid-cols-12 gap-6">
+      <!-- Funnel -->
+      <div class="col-span-7 surface p-5">
+        <div class="flex items-baseline justify-between mb-4">
+          <h3 class="font-semibold text-slate-900 text-sm">In-visit nudge conversion · all measures · Q2 2026</h3>
+          <span class="text-xs text-slate-500">precision-first design</span>
+        </div>
+        <div class="space-y-3">
+
+          <div>
+            <div class="flex items-baseline justify-between mb-1">
+              <span class="text-sm font-medium text-slate-700">Gaps eligible at point of care</span>
+              <span class="text-sm text-slate-900 font-semibold mono">4,820 · 100%</span>
+            </div>
+            <div class="h-6 bg-slate-100 rounded relative overflow-hidden">
+              <div class="h-full" style="width: 100%; background: #cbd5e1;"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-baseline justify-between mb-1">
+              <span class="text-sm font-medium text-slate-700">Nudges fired (precision filter)</span>
+              <span class="text-sm text-slate-900 font-semibold mono">1,890 · 39%</span>
+            </div>
+            <div class="h-6 bg-slate-100 rounded relative overflow-hidden">
+              <div class="h-full funnel-bar" style="width: 39%;"></div>
+            </div>
+            <div class="text-xs text-slate-500 mt-0.5">Filtered out: already addressed in note (1,612), not closeable in this visit (843), conversation cues absent (475)</div>
+          </div>
+
+          <div>
+            <div class="flex items-baseline justify-between mb-1">
+              <span class="text-sm font-medium text-slate-700">Clinician engaged with nudge</span>
+              <span class="text-sm text-slate-900 font-semibold mono">1,578 · 33%</span>
+            </div>
+            <div class="h-6 bg-slate-100 rounded relative overflow-hidden">
+              <div class="h-full funnel-bar" style="width: 32.7%;"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-baseline justify-between mb-1">
+              <span class="text-sm font-medium" style="color: var(--accent-deep);">Closed in-visit (added to plan)</span>
+              <span class="text-sm font-semibold mono" style="color: var(--accent-deep);">1,247 · 26%</span>
+            </div>
+            <div class="h-6 bg-slate-100 rounded relative overflow-hidden">
+              <div class="h-full" style="width: 25.9%; background: var(--accent);"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-baseline justify-between mb-1">
+              <span class="text-sm font-medium text-slate-700">Patient agreed, follow-up needed</span>
+              <span class="text-sm text-slate-900 font-semibold mono">312 · 6%</span>
+            </div>
+            <div class="h-6 bg-slate-100 rounded relative overflow-hidden">
+              <div class="h-full" style="width: 6.5%; background: #f59e0b;"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-baseline justify-between mb-1">
+              <span class="text-sm font-medium text-slate-700">Dismissed by clinician</span>
+              <span class="text-sm text-slate-900 font-semibold mono">331 · 7%</span>
+            </div>
+            <div class="h-6 bg-slate-100 rounded relative overflow-hidden">
+              <div class="h-full" style="width: 6.9%; background: #94a3b8;"></div>
+            </div>
+            <div class="text-xs text-slate-500 mt-0.5">Most common reason: "already discussed at prior visit"</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right column: clinician trust + cost displaced -->
+      <div class="col-span-5 space-y-4">
+
+        <div class="surface p-5">
+          <h3 class="font-semibold text-slate-900 text-sm mb-3">Clinician trust signals</h3>
+          <div class="space-y-3 text-sm">
+            <div class="flex items-baseline justify-between">
+              <div>
+                <div class="font-medium text-slate-900">Nudge precision</div>
+                <div class="text-xs text-slate-500">% of fired nudges clinicians act on or accept</div>
+              </div>
+              <span class="text-xl font-semibold text-slate-900">82.6%</span>
+            </div>
+            <div class="flex items-baseline justify-between border-t border-slate-100 pt-3">
+              <div>
+                <div class="font-medium text-slate-900">Mean nudges per visit</div>
+                <div class="text-xs text-slate-500">Across panel of 38 PCPs</div>
+              </div>
+              <span class="text-xl font-semibold text-slate-900">0.43</span>
+            </div>
+            <div class="flex items-baseline justify-between border-t border-slate-100 pt-3">
+              <div>
+                <div class="font-medium text-slate-900">Net Promoter Score</div>
+                <div class="text-xs text-slate-500">Quarterly clinician survey</div>
+              </div>
+              <span class="text-xl font-semibold text-green-700">+38</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="surface p-5">
+          <h3 class="font-semibold text-slate-900 text-sm mb-3">Cost displaced this quarter</h3>
+          <div class="space-y-2.5 text-sm">
+            <div class="flex items-baseline justify-between">
+              <span class="text-slate-700">Retrospective abstraction hours</span>
+              <span class="font-semibold text-slate-900">−2,847 hrs</span>
+            </div>
+            <div class="flex items-baseline justify-between">
+              <span class="text-slate-700">Vendor chart-chase fees</span>
+              <span class="font-semibold text-slate-900">−$184K</span>
+            </div>
+            <div class="flex items-baseline justify-between">
+              <span class="text-slate-700">Member outreach (declined → moot)</span>
+              <span class="font-semibold text-slate-900">−$67K</span>
+            </div>
+            <div class="border-t border-slate-100 pt-2.5 flex items-baseline justify-between">
+              <span class="font-semibold text-slate-900">Total cost displaced</span>
+              <span class="font-semibold" style="color: var(--accent-deep);">$251K</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="max-w-[1400px] mx-auto px-6 pb-10 pt-2 text-xs text-slate-400 text-center">
+    Mockup data · representative of a 42K-life payvider network · all figures illustrative for case study purposes
+  </div>
+</section>
+
+<script>
+  function showView(n) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById(`view-${n}`).classList.add('active');
+    document.querySelectorAll('[data-tab]').forEach(t => {
+      t.classList.toggle('tab-active', t.dataset.tab == n);
+    });
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  function handleNudge(decision) {
+    setNudgeState(decision);
+    showView(3);
+  }
+
+  function setNudgeState(decision) {
+    const isAdded = decision === 'added';
+
+    // Toggle right-panel evidence + structured-evidence cards
+    document.getElementById('evidence-added').classList.toggle('hidden', !isAdded);
+    document.getElementById('structured-added').classList.toggle('hidden', !isAdded);
+    document.getElementById('evidence-dismissed').classList.toggle('hidden', isAdded);
+    document.getElementById('structured-dismissed').classList.toggle('hidden', isAdded);
+
+    // Toggle plan/assessment lines in SOAP note
+    document.getElementById('assessment-statin').classList.toggle('hidden', !isAdded);
+    document.getElementById('plan-statin').classList.toggle('hidden', !isAdded);
+
+    // Toggle state buttons
+    const addedBtn = document.getElementById('state-added-btn');
+    const dismissedBtn = document.getElementById('state-dismissed-btn');
+    if (isAdded) {
+      addedBtn.style.background = 'var(--accent)';
+      addedBtn.style.color = 'white';
+      dismissedBtn.style.background = 'transparent';
+      dismissedBtn.style.color = '#475569';
+    } else {
+      dismissedBtn.style.background = 'var(--accent)';
+      dismissedBtn.style.color = 'white';
+      addedBtn.style.background = 'transparent';
+      addedBtn.style.color = '#475569';
+    }
+
+    // Update status text
+    document.getElementById('view3-status-text').textContent = isAdded
+      ? 'Visit complete · 9:48 AM · SPD gap closed'
+      : 'Visit complete · 9:48 AM · SPD gap open';
+  }
+
+  // =================== ANIMATED VISIT PLAYBACK (VIEW 2) ===================
+  const SCRIPT = [
+    { kind: 'turn', who: 'doctor',  name: 'Dr. Garcia',  time: '14:12', text: 'Good morning, Sarah. How have things been since I saw you last?', after: 600 },
+    { kind: 'turn', who: 'patient', name: 'Sarah Patel', time: '14:13', text: "Pretty good, I think. My sugars have been okay — mostly in the 130s on my home meter.", after: 2400 },
+    { kind: 'turn', who: 'doctor',  name: 'Dr. Garcia',  time: '14:14', text: "That's reasonable. Are you still taking the metformin twice a day, with meals?", after: 2800 },
+    { kind: 'turn', who: 'patient', name: 'Sarah Patel', time: '14:14', text: "Yes — breakfast and dinner. The stomach stuff settled down after the first few weeks.", after: 2400 },
+    { kind: 'soap', section: 'subjective', html: '<p>54-year-old female with T2DM presenting for 3-month follow-up. Reports home glucose in the 130s. Tolerating metformin 1000mg BID without significant GI side effects.</p>', after: 900 },
+    { kind: 'turn', who: 'doctor',  name: 'Dr. Garcia',  time: '14:16', text: 'Good. Any low blood sugar episodes? Lightheadedness, shaking, anything like that?', after: 2400 },
+    { kind: 'turn', who: 'patient', name: 'Sarah Patel', time: '14:17', text: "No, nothing like that. I've been walking more — about 30 minutes most days.", after: 2400 },
+    { kind: 'soap', section: 'subjective', html: '<p>Exercising ~30 min most days. No hypoglycemic episodes.</p>', after: 700 },
+    { kind: 'soap', section: 'objective', html: '<p>Vitals: BP 128/76, HR 72, Wt 168 lb (stable). POC A1c pending.</p>', after: 700 },
+    { kind: 'turn', who: 'doctor',  name: 'Dr. Garcia',  time: '14:19', text: "That's wonderful. Your A1c last visit was 7.2 — let's recheck it today and again in three months. Keep doing what you're doing.", after: 2400 },
+    { kind: 'soap', section: 'assessment', html: '<p>1. Type 2 diabetes, controlled on current regimen.</p>', after: 800 },
+    { kind: 'soap', section: 'plan', html: '<p>· Continue metformin 1000mg BID.</p><p>· Recheck A1c today and in 3 months.</p>', after: 800 },
+    { kind: 'turn', who: 'patient', name: 'Sarah Patel', time: '14:20', text: 'Sounds good. Anything else I should be doing?', after: 2400 },
+    { kind: 'nudge-marker', after: 1800 },
+    { kind: 'nudge-card', after: 600 },
+    { kind: 'turn', who: 'doctor',  name: 'Dr. Garcia',  time: '14:24', text: "Actually — yes. I'm looking at your record and you're not on a statin. Given the diabetes and your age, the guidelines really do push for one to lower your risk of heart attack and stroke long-term. Your LDL last check was 138.", after: 2400 },
+    { kind: 'turn', who: 'patient', name: 'Sarah Patel', time: '14:25', text: "Oh — I didn't realize. Is that something I should be on?", after: 4800 },
+    { kind: 'turn', who: 'doctor',  name: 'Dr. Garcia',  time: '14:26', text: "I think so. I'd like to start you on a low-to-moderate dose — atorvastatin 20 milligrams, once at bedtime. Side effects are usually minimal. We'll recheck your liver enzymes and lipid panel in six weeks. Any questions or concerns?", after: 2400 },
+    { kind: 'turn', who: 'patient', name: 'Sarah Patel', time: '14:27', text: "No, that sounds fine. Let's do it.", after: 5500 },
+    { kind: 'soap', section: 'assessment', html: '<p class="just-added">2. Hyperlipidemia, untreated. ASCVD risk elevated by diabetes + age.</p>', after: 800 },
+    { kind: 'soap', section: 'plan', html: '<p class="just-added"><strong>· Start atorvastatin 20mg PO daily at bedtime for ASCVD prevention.</strong> Patient counseled on rationale and tolerated discussion well. Recheck LFTs and lipid panel in 6 weeks.</p>', after: 900 },
+    { kind: 'turn', who: 'doctor',  name: 'Dr. Garcia',  time: '14:28', text: "Great. I'll send it to your pharmacy now.", after: 2400 },
+  ];
+
+  let animTimers = [];
+  let animSpeed = 1;
+  let totalDurMs = 0;
+
+  function escapeHtml(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function renderTurn(step) {
+    const c = document.getElementById('transcript-container');
+    const el = document.createElement('div');
+    el.className = 'turn anim-in';
+    const isPatient = step.who === 'patient';
+    el.innerHTML = `
+      <div class="flex items-baseline gap-2 mb-0.5">
+        <span class="text-xs font-semibold" ${isPatient ? 'style="color: var(--accent);"' : 'class="text-slate-700"'}>${escapeHtml(step.name)}</span>
+        <span class="text-xs text-slate-400 mono">${escapeHtml(step.time)}</span>
+      </div>
+      <p class="text-slate-800">${escapeHtml(step.text)}</p>
+    `;
+    c.appendChild(el);
+    c.scrollTo({ top: c.scrollHeight, behavior: 'smooth' });
+  }
+
+  function renderNudgeMarker() {
+    const c = document.getElementById('transcript-container');
+    const m = document.createElement('div');
+    m.className = 'nudge-marker anim-in';
+    m.style.display = 'flex';
+    m.style.alignItems = 'center';
+    m.style.gap = '0.5rem';
+    m.innerHTML = '<span>→</span><span>Care opportunity surfaced to Dr. Garcia at 14:23 (see right panel)</span>';
+    c.appendChild(m);
+    c.scrollTo({ top: c.scrollHeight, behavior: 'smooth' });
+  }
+
+  function renderSoap(step) {
+    const target = document.getElementById('soap-' + step.section);
+    const tmpl = document.createElement('template');
+    tmpl.innerHTML = step.html;
+    Array.from(tmpl.content.children).forEach(child => {
+      child.classList.add('anim-in');
+      target.appendChild(child);
+    });
+  }
+
+  function renderNudgeCard() {
+    const c = document.getElementById('nudge-container');
+    c.style.display = '';
+    c.classList.add('nudge-enter');
+    setTimeout(() => c.classList.remove('nudge-enter'), 900);
+  }
+
+  function renderStep(step) {
+    if (step.kind === 'turn') renderTurn(step);
+    else if (step.kind === 'soap') renderSoap(step);
+    else if (step.kind === 'nudge-marker') renderNudgeMarker();
+    else if (step.kind === 'nudge-card') renderNudgeCard();
+  }
+
+  function clearAnimTimers() {
+    animTimers.forEach(t => clearTimeout(t));
+    animTimers = [];
+  }
+
+  function resetVisit() {
+    clearAnimTimers();
+    document.getElementById('transcript-container').innerHTML = '';
+    document.getElementById('soap-subjective').innerHTML = '';
+    document.getElementById('soap-objective').innerHTML = '';
+    document.getElementById('soap-assessment').innerHTML = '';
+    document.getElementById('soap-plan').innerHTML = '';
+    document.getElementById('nudge-container').style.display = 'none';
+  }
+
+  function renderStatic() {
+    resetVisit();
+    SCRIPT.forEach(step => renderStep(step));
+    // Strip the entrance animation from the static render (avoids weird flash on load)
+    document.querySelectorAll('#view-2 .anim-in').forEach(el => el.classList.remove('anim-in'));
+    setStatus('Full state shown · click Replay to play live');
+  }
+
+  function setStatus(text) {
+    const el = document.getElementById('anim-status');
+    if (el) el.textContent = text;
+  }
+
+  function fmtMMSS(ms) {
+    const s = Math.max(0, Math.floor(ms / 1000));
+    return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+  }
+
+  function playVisit() {
+    resetVisit();
+    document.getElementById('play-btn').disabled = true;
+    setStatus('Playing live visit · 0:00');
+
+    let cumulative = 0;
+    SCRIPT.forEach((step) => {
+      cumulative += step.after;
+      const scaled = cumulative / animSpeed;
+      const t = setTimeout(() => {
+        renderStep(step);
+        setStatus(`Playing · ${fmtMMSS(scaled)}`);
+      }, scaled);
+      animTimers.push(t);
+    });
+
+    const finalT = setTimeout(() => {
+      setStatus('Playback complete · click Add to plan or Dismiss to advance');
+      document.getElementById('play-btn').disabled = false;
+    }, cumulative / animSpeed + 500);
+    animTimers.push(finalT);
+  }
+
+  function setSpeed(s) {
+    animSpeed = s;
+    document.querySelectorAll('[data-speed]').forEach(el => {
+      el.classList.toggle('speed-active', parseFloat(el.dataset.speed) === s);
+    });
+  }
+
+  // Render static state on load
+  window.addEventListener('DOMContentLoaded', renderStatic);
+</script>
+
+</body>
+</html>

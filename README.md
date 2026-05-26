@@ -20,7 +20,7 @@ Four views, navigable via the top nav bar:
 2. **In-visit** — The centerpiece. Live Abridge transcript on the left, auto-generating SOAP note on the right, and the single ambient nudge card appearing mid-conversation. Two CTAs: **Add to plan** or **Dismiss**.
    - **▶ Replay visit (live)** button at the top plays the entire visit in real-ish time (~43s at 1× speed) — transcript scrolls in line-by-line, SOAP note builds section-by-section, and the nudge card slides in with a subtle animation at exactly the moment Dr. Garcia would have wrapped without addressing the gap. Speed controls (0.75× / 1× / 1.5× / 2×) let you match the Loom pace you want.
    - **Show full state** snaps back to the fully-populated static view (default on page load).
-3. **Post-visit** — The signed SOAP note with the statin prescription, the Linked Evidence panel showing the exact transcript turns that drove the documentation, and the **structured evidence card** showing the HEDIS SPD numerator being auto-emitted to Highmark BCBS as ECDS supplemental data. State toggle at the top lets you flip between **Nudge accepted** and **Nudge dismissed** to show both outcomes.
+3. **Post-visit** — The signed SOAP note with the statin prescription, the Linked Evidence panel showing the exact transcript turns that drove the documentation, and the **structured evidence card** showing the HEDIS SPD numerator being auto-emitted to UPMC Health Plan as ECDS supplemental data. State toggle at the top lets you flip between **Nudge accepted** and **Nudge dismissed** to show both outcomes.
 4. **Quality dashboard** — What the VP of Value-Based Care at the payvider sees. KPI strip, measure breakdown table, in-visit nudge conversion funnel, clinician trust signals, cost displaced.
 
 ## Suggested Loom walkthrough (10 min max)
@@ -28,7 +28,7 @@ Four views, navigable via the top nav bar:
 | Time | View | What to emphasize |
 |------|------|-------------------|
 | 0:00–1:00 | Intro | Why prospective: retrospective vendors find gaps after the visit; Abridge can close them during it |
-| 1:00–2:00 | **View 1** | Gap comes from the payer (Highmark) via clearinghouse rail. Already attributed. Clinician sees "1 gap · closeable today" — not a checklist |
+| 1:00–2:00 | **View 1** | Gap comes from the payer side (UPMC Health Plan, internal feed at this UPMC payvider). Already attributed. Clinician sees "1 gap · closeable today" — not a checklist |
 | 2:00–5:00 | **View 2** | Hit **▶ Replay visit (live)** at 1.5× or 2× speed so the audience watches the transcript scroll, the SOAP note build, and the nudge slide in mid-conversation at 14:23. Then click "Add to plan" → goes to View 3. Return and click "Dismiss" → also goes to View 3 (dismissed state). Note: it's not a modal, not a BPA |
 | 5:00–7:30 | **View 3** | The magic moment: Dr. Garcia wrote zero quality forms but the SPD numerator is automatically packaged as ECDS-compliant supplemental data with audio + transcript provenance. Toggle states to show both outcomes |
 | 7:30–9:30 | **View 4** | The buyer's view. SPD closure rate ↑15.5 pts QoQ, $4.2M projected QBP impact, 82.6% nudge precision, $251K cost displaced. This is what the payvider VBC VP signs the check for |
@@ -36,7 +36,7 @@ Four views, navigable via the top nav bar:
 
 ## The example patient
 
-**Sarah Patel** — 54F, Type 2 diabetes, hypertension, hyperlipidemia. On metformin, lisinopril, ASA. **No statin** on med list, no documented intolerance. A1c 7.2 (improving to 7.0 in this visit). LDL 138. Payer: Highmark BCBS (MA). PCP: Dr. Maria Garcia at UPMC Internal Medicine.
+**Sarah Patel** — 54F, Type 2 diabetes, hypertension, hyperlipidemia. On metformin, lisinopril, ASA. **No statin** on med list, no documented intolerance. A1c 7.2 (improving to 7.0 in this visit). LDL 138. Payer: UPMC Health Plan (MA). PCP: Dr. Maria Garcia at UPMC Internal Medicine. Clean Phase 1 payvider demo — one P&L, internal data flow.
 
 She's a clean SPD candidate. Picked because the closure is a single prescription — a clinician audience grasps it instantly, and the gap genuinely is closeable in the room rather than requiring a separate lab order, referral, or screening procedure.
 
@@ -52,7 +52,7 @@ She's a clean SPD candidate. Picked because the closure is a single prescription
 ## What's explicitly NOT in the mockup
 
 - Real audio playback (visual timestamp marker only).
-- Real EHR/FHIR integration. The "Highmark BCBS ECDS feed" status is illustrative.
+- Real EHR/FHIR integration. The "UPMC Health Plan ECDS feed" status is illustrative.
 - All five HEDIS measures with real data. SPD is the worked example; the other measures on the dashboard are plausible-looking but illustrative.
 - Mobile responsive layout. This is a desktop clinician surface.
 - Cross-browser polish beyond modern Chrome/Safari/Firefox.
